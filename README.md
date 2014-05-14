@@ -9,7 +9,7 @@ MergeXML could be useful in cases where it is necessary to gather XML data from 
 For example, to join the configuration files of different subsystems depending on the system operation. 
 
 The usage
------
+---------
 
 **$oMX = new MergeXML([$opts]);**
 
@@ -50,14 +50,14 @@ The result object can be accessed also via *$oMX->dom* property. The properties 
 - **nsp** - namespaces array (prefix => URI)
 - **count** - number of sources merged
 - **error** - error information
- - error->code ('' is ok)
+ - error->code ('' means ok)
  - error->text
 
 The sources must have the same default namespace (if have at all).
 Prefix '_' is reserved to handle default namespace.
 
 The package
-------
+-----------
 
 The following files are included:
 
