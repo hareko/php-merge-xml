@@ -1,0 +1,47 @@
+<!--
+/**
+ * PHP MergeXML usage sample
+ *
+ * @package     MergeXML
+ * @author      Vallo Reima
+ * @copyright   (C)2014
+ */
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PHP MergeXML usage sample</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+      tr td:nth-child(3){
+        padding-left: 15px;
+      }
+      button, p {
+        font-weight: bold;
+      }
+      iframe {
+        font-family: monospace;
+        width: 600px;
+        height: 600px;
+        border: 1px solid grey;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>PHP MergeXML class to merge multiple XML sources</h3>
+    <form action="example.php" method="post" enctype="multipart/form-data" target="output">
+      <table>
+        <tr>
+          <td>File1:</td><td><input type="file" name="file1"></td>
+          <td>File2:</td><td><input type="file" name="file2"></td>
+        <tr>
+          <td><i>File3:</i></td><td><input type="file" name="file3"></td>
+          <td colspan="2"><button type="submit" name="submit">Merge XMLs</button></td>
+        </tr>
+      </table>
+    </form> 
+    <p>Result...</p>
+    <iframe name="output"></iframe>
+  </body>
+</html>
