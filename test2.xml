@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+sample configuration
+@package     Application 
+@author      Vallo Reima
+@copyright   (C)2013
+-->
+<cfg xmlns="http://www.vallo.me/" xmlns:rgn="http://www.vregistry.com/">
+  <!-- Application properties -->
+  <rgn:apn>
+    <name>vRegistry</name>
+    <vers>1.0</vers>
+    <year>2011</year>
+  </rgn:apn>
+  <!-- Modules -->
+  <mod>
+    <sni flag="C">signin</sni>
+  </mod>
+  <!-- Loader modified-->
+  <ldm>
+    <sni>
+      <P opt="wrapper">signin</P>
+      <S>login</S>
+      <S>signin</S>
+      <J opt="loader">login</J>
+    </sni>
+  </ldm>
+</cfg>
+<!--
+merged with system
+-->
