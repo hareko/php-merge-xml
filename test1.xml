@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+sample configuration
+@package     System
+@author      Vallo Reima
+@copyright   (C)2012
+-->
+<cfg xmlns="http://www.vallo.me/">
+  <!-- Application properties -->
+  <apn>
+    <name>vRegistrator</name>
+    <vers>1.1</vers>
+  </apn>
+  <!-- Modules -->
+  <mod>
+    <ath flag="O">auth</ath>
+    <sni flag="C">login</sni>
+    <snu>signup</snu>
+    <end>logout</end>
+  </mod>
+  <!-- Loader modules -->
+  <ldm>
+    <sni>
+      <P opt="wrap">login</P>
+      <J opt="load" stay="all">login</J>
+      <S>login</S>
+    </sni>
+    <snu>
+      <P opt="wrap">signup</P>
+      <S>login</S>
+      <J opt="load">signup</J>
+    </snu>
+  </ldm>
+</cfg>
