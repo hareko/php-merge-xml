@@ -47,7 +47,7 @@ You can get the XML result tree:
 The result object can be accessed also via *$oMX->dom* property. The properties available:
 
 - **dom** - result XML DOM object
-- **dpx** - result XPath object
+- **dxp** - result XPath object
 - **nsp** - namespaces array (prefix => URI)
 - **count** - number of sources merged
 - **error** - error information
