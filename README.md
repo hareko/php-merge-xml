@@ -1,13 +1,12 @@
 PHP MergeXML class
 ==================
 
-The class allows to merge multiple XML sources (files, strings, objects) into single DOM XML object.
-The merging is performed on the node level adding new elements and replacing existing ones.
+The class allows to merge the XML sources (files, strings, objects) into single DOM XML object.
+The merging is performed recursively on the node level adding new elements and replacing existing ones.
 The nodes with the same path/name are replaced/added sequentially and the modification can be controlled by the options.
 
 MergeXML could be useful in cases where it is necessary to gather XML data from multiple sources.
 For example, to join the configuration files of different subsystems depending on the system operation. 
-And use it for learning of the XML DOMDocument and XPath manipulation.
 
 The usage
 -----
