@@ -94,7 +94,6 @@ class MergeXML {
       $this->count = 1;
       $rlt = $this->dom;
     } else if ($this->CheckSource($dom)) {
-      $this->dbg = [];
       $this->Merge($dom, '/');  /* add to existing */
       $this->count++;
       $rlt = $this->dom;
@@ -256,7 +255,6 @@ class MergeXML {
     if ($j > 0) {
       $p = $pth . ($pth === '/' ? '' : '/') . $p . '[' . $j . ']';
     }
-    $this->dbg[] = $p;
     return $p;
   }
 
