@@ -59,23 +59,3 @@ function FileMerge(MergeXML $xml) {
    }
   return $rtn;
 }
-
-function Debug($data = array())
-/*
- *  save debug data
- */ {
-  $level = 0;
-  $date = date('d.m.Y/H:i:s');
-  $trace = debug_backtrace();
-  $file = basename($trace[$level]['file'], '.php');
-  $line = $trace[$level]['line'];
-  $text = "$date $file $line\n";
-  foreach ($data as $key => $value) {
-    $val = var_export($value, true);
-    $text .= "$key=$val\n";
-  }
-  $text .= "\n";
-  $fp = fopen('debug.txt', 'a');
-  fwrite($fp, $text);
-  fclose($fp);
-}
