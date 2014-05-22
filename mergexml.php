@@ -52,9 +52,9 @@ class MergeXML {
    * @return object|false
    */
   public function AddFile($file, $stay = null) {
-    if (is_array($stay)){
+    if (is_array($stay)) {
       $this->stay = array_merge($this->stay, $stay);
-    }else if (!empty($stay)){
+    } else if (!empty($stay)) {
       $this->stay[] = $stay;
     }
     $data = @file_get_contents($file);
@@ -76,9 +76,9 @@ class MergeXML {
    *                  object - result
    */
   public function AddSource($xml, $stay = null) {
-    if (is_array($stay)){
+    if (is_array($stay)) {
       $this->stay = array_merge($this->stay, $stay);
-    }else if (!empty($stay)){
+    } else if (!empty($stay)) {
       $this->stay[] = $stay;
     }
     if (is_object($xml)) {
@@ -102,11 +102,10 @@ class MergeXML {
     }
     if ($dom === false) {
       $rlt = $this->Error('inv');
-    } else if ($dom === true) {
-      $this->dxp = new DOMXPath($this->dom);
+    } else if ($dom === true && $this->NameSpaces()) {
       $this->count = 1;
       $rlt = $this->dom;
-    } else if ($this->CheckSource($dom)) {
+    } else if (is_object($dom) && $this->CheckSource($dom)) {
       $this->Merge($dom, '/');  /* add to existing */
       $this->count++;
       $rlt = $this->dom;
@@ -148,28 +147,38 @@ class MergeXML {
       }
     }
     if ($rlt) {
-      $doc = simplexml_import_dom($this->dom);
-      $nsps = $doc->getDocNamespaces(true);
       $doc = simplexml_import_dom($dom);
-      $nsp = $doc->getDocNamespaces(true);
-      foreach ($nsp as $pfx => $url) {
-        if (!isset($nsps[$pfx])) {
-          $this->dom->createAttributeNS($url, "$pfx:attr");
-          $nsps[$pfx] = $url;
-        }
+      $rlt = $this->NameSpaces($doc->getDocNamespaces(true));
+    }
+    return $rlt;
+  }
+
+  /**
+   * register namespaces
+   * @param array $nsp -- additional namespaces
+   * @return bool
+   */
+  private function NameSpaces($nsp = array()) {
+    $doc = simplexml_import_dom($this->dom);
+    $nsps = $doc->getDocNamespaces(true);
+    foreach ($nsp as $pfx => $url) {
+      if (!isset($nsps[$pfx])) {
+        $this->dom->createAttributeNS($url, "$pfx:attr");
+        $nsps[$pfx] = $url;
       }
-      $this->dxp = new DOMXPath($this->dom);
-      $this->nsp = array();
-      foreach ($nsps as $pfx => $url) {
-        if ($pfx == $this->nsd) {
-          $rlt = $this->Error('nse');
-          break;
-        } else if (empty($pfx)) {
-          $pfx = $this->nsd;
-        }
-        $this->nsp[$pfx] = $url;
-        $this->dxp->registerNamespace($pfx, $url);
+    }
+    $this->dxp = new DOMXPath($this->dom);
+    $this->nsp = array();
+    $rlt = true;
+    foreach ($nsps as $pfx => $url) {
+      if ($pfx == $this->nsd) {
+        $rlt = $this->Error('nse');
+        break;
+      } else if (empty($pfx)) {
+        $pfx = $this->nsd;
       }
+      $this->nsp[$pfx] = $url;
+      $this->dxp->registerNamespace($pfx, $url);
     }
     return $rlt;
   }
