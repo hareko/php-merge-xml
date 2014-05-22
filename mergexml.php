@@ -48,9 +48,15 @@ class MergeXML {
   /**
    * add XML file
    * @param string $file -- pathed filename
+   * @param string|array $stay
    * @return object|false
    */
-  public function AddFile($file) {
+  public function AddFile($file, $stay = null) {
+    if (is_array($stay)){
+      $this->stay = array_merge($this->stay, $stay);
+    }else if (!empty($stay)){
+      $this->stay[] = $stay;
+    }
     $data = @file_get_contents($file);
     if ($data === false) {
       $rlt = $this->Error('nof');
@@ -65,10 +71,16 @@ class MergeXML {
   /**
    * add XML to result object
    * @param string|object $xml
+   * @param string|array $stay
    * @return mixed -- false - bad content
    *                  object - result
    */
-  public function AddSource($xml) {
+  public function AddSource($xml, $stay = null) {
+    if (is_array($stay)){
+      $this->stay = array_merge($this->stay, $stay);
+    }else if (!empty($stay)){
+      $this->stay[] = $stay;
+    }
     if (is_object($xml)) {
       if (get_class($xml) != $this->cln) {
         $dom = false;
@@ -91,6 +103,7 @@ class MergeXML {
     if ($dom === false) {
       $rlt = $this->Error('inv');
     } else if ($dom === true) {
+      $this->dxp = new DOMXPath($this->dom);
       $this->count = 1;
       $rlt = $this->dom;
     } else if ($this->CheckSource($dom)) {
