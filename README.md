@@ -50,7 +50,7 @@ The result object can be accessed also via *$oMX->dom* property. The properties 
 - **nsp** - namespaces array (prefix => URI)
 - **count** - number of sources merged
 - **error** - error information
- - error->code ('' means ok)
+ - error->code ('' is ok)
  - error->text
 
 The sources must have the same default namespace (if have at all).
@@ -67,5 +67,14 @@ The following files are included:
 4. *test1.xml, test2.xml* - test data for the example.
 
 The MergeXML is realized also in JavaScript (see [github.com]).
+
+ChangeLog
+---------
+
+22 May 2014
+
+- *mergexml.php*
+ - *stay* parameter is added for *AddFile* and *AddSource* methods
+ - *NameSpaces* method is added to register/xpath 1st (single) source
 
   [github.com]: http://www.github.com/hareko/js-merge-xml
