@@ -17,7 +17,8 @@ $opts - the options array:
 
 - join - common root name if any source has different root name (default is *root*, specifying *false* denies different names)
 - updn - traverse the nodes by name sequence (*true*, default) or overall sequence (*false*)
-- stay - the *stay* attribute value to deny overwriting of specific node (default is *all*, can be array of values or empty)
+- stay - use the *stay* attribute value to deny overwriting of specific node (default is *all*, can be array of values, string or empty)
+- clone - use the *clone* attribute value to clone specific nodes if they already exists (empty by default, can be array of values, string or empty)
 
 **$oMX->AddFile($file)**;
 
@@ -75,6 +76,7 @@ ChangeLog
 
 - *mergexml.php*
  - *stay* parameter is added for *AddFile* and *AddSource* methods
+ - *clone* parameter is added for *AddFile* and *AddSource* methods
  - *NameSpaces* method is added to register/xpath 1st (single) source
 
   [github.com]: http://www.github.com/hareko/js-merge-xml
