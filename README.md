@@ -76,7 +76,11 @@ ChangeLog
 
 - *mergexml.php*
  - *stay* parameter is added for *AddFile* and *AddSource* methods
- - *clone* parameter is added for *AddFile* and *AddSource* methods
  - *NameSpaces* method is added to register/xpath 1st (single) source
+
+11 July 2014
+
+- *mergexml.php*
+ - *clone* parameter is added for *AddFile* and *AddSource* methods
 
   [github.com]: http://www.github.com/hareko/js-merge-xml
