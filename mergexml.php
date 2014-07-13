@@ -9,18 +9,17 @@
  * @copyright   (C)2014
  */
 class MergeXML {
-
   private $cln = 'DOMDocument';
   private $dom;       /* result DOM object */
   private $dxp;       /* result xPath object */
   private $nsp;       /* namespaces list */
   private $nsd = '_'; /* default namespace prefix */
   private $stay;      /* overwrite protection */
+  private $clon;     /* clone instead of overwrite */
   private $join;      /* joining root name */
   private $updn;      /* update nodes sequentially by name */
   private $count = 0; /* adding counter */
   private $error;     /* error info */
-
   /**
    * set (default) options, create result object
    * @param array $opts -- stay, join, updn
@@ -32,6 +31,13 @@ class MergeXML {
       $this->stay = $opts['stay'];
     } else {
       $this->stay = (array) $opts['stay'];
+    }
+    if (!isset($opts['clone'])) {
+      $this->clon = array();
+    } else if (is_array($opts['clone'])) {
+      $this->clon = $opts['clone'];
+    } else {
+      $this->clon = (array) $opts['clone'];
     }
     $this->join = !isset($opts['join']) ? 'root' : (string) $opts['join'];
     $this->updn = !isset($opts['updn']) ? true : (bool) $opts['updn'];
@@ -51,11 +57,16 @@ class MergeXML {
    * @param string|array $stay
    * @return object|false
    */
-  public function AddFile($file, $stay = null) {
+  public function AddFile($file, $stay = null, $clone = null) {
     if (is_array($stay)) {
       $this->stay = array_merge($this->stay, $stay);
     } else if (!empty($stay)) {
       $this->stay[] = $stay;
+    }
+    if (is_array($clone)) {
+      $this->clon = array_merge($this->clon, $clone);
+    } else if (!empty($clone)) {
+      $this->clon[] = $clone;
     }
     $data = @file_get_contents($file);
     if ($data === false) {
@@ -75,11 +86,16 @@ class MergeXML {
    * @return mixed -- false - bad content
    *                  object - result
    */
-  public function AddSource($xml, $stay = null) {
+  public function AddSource($xml, $stay = null, $clone = null) {
     if (is_array($stay)) {
       $this->stay = array_merge($this->stay, $stay);
     } else if (!empty($stay)) {
       $this->stay[] = $stay;
+    }
+    if (is_array($clone)) {
+      $this->clon = array_merge($this->clon, $clone);
+    } else if (!empty($clone)) {
+      $this->clon[] = $clone;
     }
     if (is_object($xml)) {
       if (get_class($xml) != $this->cln) {
@@ -194,22 +210,22 @@ class MergeXML {
       $path = $this->GetNodePath($src->childNodes, $node, $pth, $i);
       $obj = $this->Query($path);
       if ($node->nodeType === XML_ELEMENT_NODE) {
-        $flg = true;  /* replace existing node by default */
-        if ($obj->length == 0 || $obj->item(0)->namespaceURI != $node->namespaceURI) { /* add node */
+        /* replace existing node by default */
+    	  $flg = (array_search($obj->item(0)->tagName, $this->stay) !== false) ? false : true;
+        /* not clone existing node by default */
+		    $cln = (array_search($obj->item(0)->tagName, $this->clon) === false) ? false : true; 
+        if ($obj->length == 0 || $obj->item(0)->namespaceURI != $node->namespaceURI || $cln) { /* add node */
           $tmp = $this->dom->importNode($node, true);
           $this->Query($pth)->item(0)->appendChild($tmp);
-        } else {
-          if (array_search($obj->item(0)->getAttribute('stay'), $this->stay) !== false) {
-            $flg = false; /* don't replace */
-          }
-          if ($flg && $node->hasAttributes()) { /* add/replace attributes */
-            foreach ($node->attributes as $attr) {
-              $obj->item(0)->setAttribute($attr->nodeName, $attr->nodeValue);
-            }
-          }
-        }
-        if ($node->hasChildNodes() && $flg) {
-          $this->Merge($node, $path); /* recurse to subnodes */
+        } else if ($flg && !$cln){
+    			if ($node->hasAttributes()) { /* add/replace attributes */
+    				foreach ($node->attributes as $attr) {
+    					$obj->item(0)->setAttribute($attr->nodeName, $attr->nodeValue);
+    				}
+    			}
+    			if ($node->hasChildNodes()) {
+    				$this->Merge($node, $path); /* recurse to subnodes */
+    			}
         }
       } else if ($node->nodeType === XML_TEXT_NODE || $node->nodeType === XML_COMMENT_NODE) { /* leaf node */
         if ($obj->length == 0) {
