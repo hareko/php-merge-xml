@@ -81,6 +81,6 @@ ChangeLog
 11 July 2014
 
 - *mergexml.php*
- - *clone* parameter is added for *AddFile* and *AddSource* methods
+ - *clone* parameter is added for *AddFile* and *AddSource* methods (Pedro Carrazco)
 
   [github.com]: http://www.github.com/hareko/js-merge-xml
