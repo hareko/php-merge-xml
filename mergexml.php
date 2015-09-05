@@ -22,7 +22,7 @@ class MergeXML {
   private $error;     /* error info */
   /**
    * set (default) options, create result object
-   * @param array $opts -- stay, join, updn
+   * @param array $opts -- stay, join, updn, fmt, enc
    */
   public function __construct($opts = array()) {
     if (!isset($opts['stay'])) {
@@ -45,7 +45,8 @@ class MergeXML {
     if (class_exists($this->cln)) {
       $this->dom = new $this->cln();
       $this->dom->preserveWhiteSpace = false;
-      $this->dom->formatOutput = true;
+      $this->dom->formatOutput = !isset($opts['fmt']) ? true : (bool) $opts['fmt'];
+      $this->dom->encoding = !isset($opts['enc']) ? 'utf-8' : (string) $opts['enc'];
     } else {
       $this->Error('nod');
     }
