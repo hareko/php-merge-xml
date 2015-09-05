@@ -15,9 +15,9 @@ The usage
 
 $opts - the options array:
 
-- join - common root name if any source has different root name (default is *root*, specifying *false* denies different names)
-- updn - traverse the nodes by name sequence (*true*, default) or overall sequence (*false*)
-- stay - use the *stay* attribute value to deny overwriting of specific node (default is *all*, can be array of values, string or empty)
+- join - common root name if any source has different root name (*root* by default, specifying *false* denies different names)
+- updn - traverse the nodes by name sequence (*true* by default) or overall sequence (*false*)
+- stay - use the *stay* attribute value to deny overwriting of specific node (*all* by default, can be array of values, string or empty)
 - fmt - *DOMDocument::$formatOutput* property value (*true* by default)
 - enc - *DOMDocument::$encoding* property value (*utf-8* by default)
 - clone - use the *clone* attribute value to clone specific nodes if they already exists (empty by default, can be array of values, string or empty)
@@ -84,5 +84,10 @@ ChangeLog
 
 - *mergexml.php*
  - *clone* parameter is added for *AddFile* and *AddSource* methods (Pedro Carrazco)
+
+05 Sep 2015
+
+- *mergexml.php*
+ - *fmt* and *enc* parameters are added
 
   [github.com]: http://www.github.com/hareko/js-merge-xml
