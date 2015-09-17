@@ -46,7 +46,7 @@ You can get the XML result tree:
 - 1 - text
 - 2 - html
 
-For the *$oMX->Get(1)* the **PackXML::minify()** utility call can be used to compress the result.
+For the *$oMX->Get(1)* the **PackXML::minify($text)** utility call can be used to compress the result.
 
 The result object can be accessed also via *$oMX->dom* property. The properties available:
 
@@ -92,6 +92,6 @@ ChangeLog
 
 - *mergexml.php*
  - *fmt* and *enc* parameters are added
-- *packxml.php* utility to compress the XML string
-- 
+- *packxml.php* utility is added to compress the XML string
+
   [github.com]: http://www.github.com/hareko/js-merge-xml
