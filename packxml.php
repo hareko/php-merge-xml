@@ -2,22 +2,22 @@
 
 /**
  * Minify XML source
- * standalone utiliy
  *
- * @package MergeXML
+ * @package Packer
  * @author Vallo Reima
  * @copyright (C)2015
  */
-class MinifyXML {
+class PackXML {
 
   private $input;
   private $nodes = [];  /* node objects to remove */
 
   /**
    * @param string $source
+   * @param array $options
    * @return mixed -- string - ok
    */
-  public static function minify($source) {
+  public static function minify($source, $options = []) {
     $min = new self($source);
     return $min->process();
   }
