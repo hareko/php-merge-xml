@@ -15,8 +15,8 @@ class MergeXML {
   private $dxp;       /* result xPath object */
   private $nsp;       /* namespaces list */
   private $nsd = '_'; /* default namespace prefix */
-  private $stay = array();      /* source overwrite protection */
-  private $keep = array();      /* do not overwrite */
+  private $stay = array();      /* destination overwrite protection */
+  private $keep = array();      /* deny source node to overwrite */
   private $join;      /* joining root name */
   private $updn;      /* update nodes sequentially by name */
   private $count = 0; /* adding counter */
