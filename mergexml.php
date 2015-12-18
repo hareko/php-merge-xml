@@ -15,7 +15,8 @@ class MergeXML {
   private $dxp;       /* result xPath object */
   private $nsp;       /* namespaces list */
   private $nsd = '_'; /* default namespace prefix */
-  private $stay;      /* overwrite protection */
+  private $stay = array();      /* source overwrite protection */
+  private $keep = array();      /* do not overwrite */
   private $join;      /* joining root name */
   private $updn;      /* update nodes sequentially by name */
   private $count = 0; /* adding counter */
@@ -23,16 +24,10 @@ class MergeXML {
 
   /**
    * set (default) options, create result object
-   * @param array $opts -- stay, join, updn, fmt, enc
+   * @param array $opts -- stay, keep, join, updn, fmt, enc
    */
   public function __construct($opts = array()) {
-    if (!isset($opts['stay'])) {
-      $this->stay = array('all');
-    } else if (is_array($opts['stay'])) {
-      $this->stay = $opts['stay'];
-    } else {
-      $this->stay = (array) $opts['stay'];
-    }
+    $this->Protect($opts);
     $this->join = !isset($opts['join']) ? 'root' : (string) $opts['join'];
     $this->updn = !isset($opts['updn']) ? true : (bool) $opts['updn'];
     $this->error = (object) array('code' => '', 'text' => '');
@@ -49,15 +44,11 @@ class MergeXML {
   /**
    * add XML file
    * @param string $file -- pathed filename
-   * @param string|array $stay
+   * @param array $opts -- stay, keep
    * @return object|false
    */
-  public function AddFile($file, $stay = null) {
-    if (is_array($stay)) {
-      $this->stay = array_merge($this->stay, $stay);
-    } else if (!empty($stay)) {
-      $this->stay[] = $stay;
-    }
+  public function AddFile($file, $opts = array()) {
+    $this->Protect($opts);
     $data = @file_get_contents($file);
     if ($data === false) {
       $rlt = $this->Error('nof');
@@ -72,16 +63,12 @@ class MergeXML {
   /**
    * add XML to result object
    * @param string|object $xml
-   * @param string|array $stay
+   * @param array $opts -- stay, keep
    * @return mixed -- false - bad content
    *                  object - result
    */
-  public function AddSource($xml, $stay = null) {
-    if (is_array($stay)) {
-      $this->stay = array_merge($this->stay, $stay);
-    } else if (!empty($stay)) {
-      $this->stay[] = $stay;
-    }
+  public function AddSource($xml, $opts = array()) {
+    $this->Protect($opts);
     if (is_object($xml)) {
       if (get_class($xml) != $this->cln) {
         $dom = false;
@@ -114,6 +101,26 @@ class MergeXML {
       $rlt = false;
     }
     return $rlt;
+  }
+
+  /**
+   * set stay/keep
+   * @param string $nme -- option name
+   * @param array $par 
+   */
+  private function Protect($opts) {
+    $opt = array('stay', 'keep');
+    foreach ($opt as $o) {
+      if (isset($opts[$o])) {
+        if (is_array($opts[$o])) {
+          $this->$o = array_merge($this->$o, $opts[$o]);
+        } else if (!empty($opts[$o])) {
+          array_push($this->$o, $opts[$o]);
+        }
+      } else if (empty($this->$o)) {
+        array_push($this->$o, 'all');
+      }
+    }
   }
 
   /**
@@ -200,7 +207,8 @@ class MergeXML {
           $tmp = $this->dom->importNode($node, true);
           $this->Query($pth)->item(0)->appendChild($tmp);
         } else {
-          if (array_search($obj->item(0)->getAttribute('stay'), $this->stay) !== false) {
+          if (array_search($obj->item(0)->getAttribute('stay'), $this->stay) !== false ||
+                  array_search($node->getAttribute('keep'), $this->keep) !== false) {
             $flg = false; /* don't replace */
           }
           if ($flg && $node->hasAttributes()) { /* add/replace attributes */
