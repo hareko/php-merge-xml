@@ -83,11 +83,6 @@ ChangeLog
  - *stay* parameter is added for *AddFile* and *AddSource* methods
  - *NameSpaces* method is added to register/xpath 1st (single) source
 
-11 July 2014
-
-- *mergexml.php*
- - *clone* parameter is added for *AddFile* and *AddSource* methods (Pedro Carrazco)
-
 17 Sep 2015
 
 - *mergexml.php*
