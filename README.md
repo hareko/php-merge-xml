@@ -15,12 +15,10 @@ The usage
 
 $opts - the options array:
 
-- join - common root name if any source has different root name (*root* by default, specifying *false* denies different names)
-- updn - traverse the nodes by name sequence (*true* by default) or overall sequence (*false*)
-- stay - use the *stay* attribute value to deny overwriting of specific node (*all* by default, can be array of values, string or empty)
-- fmt - *DOMDocument::$formatOutput* property value (*true* by default)
-- enc - *DOMDocument::$encoding* property value (*utf-8* by default)
-- clone - use the *clone* attribute value to clone specific nodes if they already exists (empty by default, can be array of values, string or empty)
+- join - common root name if any source has different root name (default is *root*, specifying *false* denies different names)
+- updn - traverse the nodes by name sequence (*true*, default) or overall sequence (*false*)
+- stay - the destination node *stay* attribute value to deny overwriting of specific node (default is *all*, can be array of values or empty)
+- keep - the source node *keep* attribute value to deny overwriting of specific node (default is *all*, can be array of values or empty)
 
 **$oMX->AddFile($file)**;
 
@@ -46,8 +44,6 @@ You can get the XML result tree:
 - 1 - text
 - 2 - html
 
-For the *$oMX->Get(1)* the **PackXML::minify($text)** utility call can be used to compress the result.
-
 The result object can be accessed also via *$oMX->dom* property. The properties available:
 
 - **dom** - result XML DOM object
@@ -66,11 +62,10 @@ The package
 
 The following files are included:
 
-1. *mergexml.php* - the MergeXML class; requires PHP 5.2+
-2. *example.html* - client-side to select the xml files and display result
-3. *example.php* - server-side to receive & pass the xml data and return result
-4. *test1.xml, test2.xml* - test data for the example
-5. *packxml.php* - PackXML utility class to compress the XML string
+1. *mergexml.php* - the MergeXML class; requires PHP 5.2+;
+2. *example.html* - client-side to select the xml files and display result;
+3. *example.php* - server-side to receive & pass the xml data and return result;
+4. *test1.xml, test2.xml* - test data for the example.
 
 The MergeXML is realized also in JavaScript (see [github.com]).
 
@@ -88,5 +83,10 @@ ChangeLog
 - *mergexml.php*
  - *fmt* and *enc* parameters are added
 - *packxml.php* utility is added to compress the XML string
+
+18 Dec 2015
+
+- *mergexml.php*
+ - *keep* parameter is added for *__construct*, *AddFile* and *AddSource* methods
 
   [github.com]: http://www.github.com/hareko/js-merge-xml
