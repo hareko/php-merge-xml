@@ -1,0 +1,19 @@
+{
+    "name": "vregistry/mergexml",
+    "type": "library",
+    "description": "Merge multiple XML sources from strings, files, DOM objects",
+    "keywords": ["xml","merge"],
+    "homepage": "https://github.com/hareko/php-merge-xml",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Vallo Reima",
+            "email": "vallo@vregistry.com",
+            "homepage": "http://vregistry.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
