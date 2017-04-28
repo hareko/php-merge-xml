@@ -89,4 +89,10 @@ ChangeLog
 - *mergexml.php*
  - *keep* parameter is added for *__construct*, *AddFile* and *AddSource* methods
 
+28 Apr 2017
+
+- *mergexml.php*
+ - [PackApp] obfuscation compatibility
+
   [github.com]: http://www.github.com/hareko/js-merge-xml
+  [PackApp]: http://vregistry.com/packapp
