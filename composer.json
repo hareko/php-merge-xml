@@ -4,7 +4,7 @@
     "description": "Merge multiple XML sources from strings, files, DOM objects",
     "keywords": ["xml","merge"],
     "homepage": "https://github.com/hareko/php-merge-xml",
-    "license": "BSD",
+    "license": "MIT",
     "authors": [
         {
             "name": "Vallo Reima",
