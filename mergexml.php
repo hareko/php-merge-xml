@@ -130,7 +130,7 @@ class MergeXML {
      */
     private function CheckSource(&$dom) {
         $rlt = true;
-        if ($dom->encoding != $this->dom->encoding) {
+        if (strcasecmp($dom->encoding, $this->dom->encoding) !== 0) {
             $rlt = $this->Error('enc');
         } else if ($dom->documentElement->namespaceURI != $this->dom->documentElement->namespaceURI) { /* $dom->documentElement->lookupnamespaceURI(NULL) */
             $rlt = $this->Error('nse');
