@@ -94,5 +94,10 @@ ChangeLog
 - *mergexml.php*
  - [PackApp] obfuscation compatibility
 
+23 May 2018
+
+- *mergexml.php*
+ - case-insensitive encoding checking
+
   [github.com]: http://www.github.com/hareko/js-merge-xml
   [PackApp]: http://vregistry.com/packapp
