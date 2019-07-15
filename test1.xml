@@ -16,7 +16,6 @@ sample configuration
     <ath flag="O">auth</ath>
     <sni flag="C">login</sni>
     <snu>signup</snu>
-    <end>logout</end>
   </mod>
   <!-- Loader modules -->
   <ldm>
@@ -27,7 +26,7 @@ sample configuration
     </sni>
     <snu>
       <P opt="wrap">signup</P>
-      <S>login</S>
+      <S>signup</S>
       <J opt="load">signup</J>
     </snu>
   </ldm>
