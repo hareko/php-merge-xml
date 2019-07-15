@@ -10,7 +10,6 @@ sample configuration
   <rgn:apn>
     <name>vRegistry</name>
     <vers>1.0</vers>
-    <year>2011</year>
   </rgn:apn>
   <!-- Modules -->
   <mod>
