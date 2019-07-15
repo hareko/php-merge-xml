@@ -51,8 +51,8 @@ The result object can be accessed also via *$oMX->dom* property. The properties 
 - **nsp** - namespaces array (prefix => URI)
 - **count** - number of sources merged
 - **error** - error information
- - error->code ('' is ok)
- - error->text
+  - error->code ('' is ok)
+  - error->text
 
 The sources must have the same default namespace (if have at all).
 Prefix '_' is reserved to handle default namespace.
@@ -62,42 +62,48 @@ The package
 
 The following files are included:
 
-1. *mergexml.php* - the MergeXML class; requires PHP 5.2+;
+1. *mergexml.php* - the MergeXML class; requires PHP 5.3+;
 2. *example.html* - client-side to select the xml files and display result;
 3. *example.php* - server-side to receive & pass the xml data and return result;
-4. *test1.xml, test2.xml* - test data for the example.
+4. *test1.xml, test2.xml* - test data for the example;
+5. *packxml.php* - utility class to minify XML source.
 
 The MergeXML is realized also in JavaScript (see [github.com]).
 
 ChangeLog
 ---------
 
-22 May 2014
+May 2014
 
 - *mergexml.php*
- - *stay* parameter is added for *AddFile* and *AddSource* methods
- - *NameSpaces* method is added to register/xpath 1st (single) source
+  - *stay* parameter is added for *AddFile* and *AddSource* methods
+  - *NameSpaces* method is added to register/xpath 1st (single) source
 
-17 Sep 2015
+September 2015
 
 - *mergexml.php*
- - *fmt* and *enc* parameters are added
+  - *fmt* and *enc* parameters are added
 - *packxml.php* utility is added to compress the XML string
 
-18 Dec 2015
+December 2015
 
 - *mergexml.php*
- - *keep* parameter is added for *__construct*, *AddFile* and *AddSource* methods
+  - *keep* parameter is added for *__construct*, *AddFile* and *AddSource* methods
 
-28 Apr 2017
-
-- *mergexml.php*
- - [PackApp] obfuscation compatibility
-
-23 May 2018
+April 2017
 
 - *mergexml.php*
- - case-insensitive encoding checking
+  - [PackApp] obfuscation compatibility
+
+May 2018
+
+- *mergexml.php*
+  - case-insensitive encoding checking
+
+July 2019
+
+- *example.html*
+  - select multiple files (html5)
 
   [github.com]: http://www.github.com/hareko/js-merge-xml
   [PackApp]: http://vregistry.com/packapp
